@@ -7,20 +7,20 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class HotelReservation{
+public class HotelReservation {
 
-    public static List<Hotel> hotels =  new ArrayList<>();
+    public static List<Hotel> hotels = new ArrayList<>();
 
     public void addHotel(Hotel hotel) {
         hotels.add(hotel);
     }
 
-    public Hotel getCheapestHotel(LocalDate startDate, LocalDate lastDate ){
-        long daysBetween = ChronoUnit.DAYS.between(startDate, lastDate) ;
+    public Hotel getCheapestHotel(LocalDate startDate, LocalDate lastDate) {
+        long daysBetween = ChronoUnit.DAYS.between(startDate, lastDate);
         int cheapRate;
-        Hotel cheapest = Collections.min(hotels, Comparator.comparing(hotel -> hotel.rate));
-        cheapRate = (int) ((daysBetween + 1)*cheapest.getRate());
-        System.out.println("Cheapest Hotel Name: "+ cheapest.getName() + "\nTotal Rate: "+cheapRate);
+        Hotel cheapest = Collections.min(hotels, Comparator.comparing(hotel -> hotel.weekDayRate));
+        cheapRate = (int) ((daysBetween + 1) * cheapest.weekDayRate);
+        System.out.println("Cheapest Hotel Name: " + cheapest.getName() + "\nTotal Rate: " + cheapRate);
         return cheapest;
     }
 }
