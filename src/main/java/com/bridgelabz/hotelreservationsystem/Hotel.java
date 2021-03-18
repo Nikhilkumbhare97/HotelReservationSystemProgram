@@ -15,12 +15,8 @@ public class Hotel {
         this.rating = rating;
     }
 
-    public String getName() {
-        return name;
-    }
-
     @Override
     public String toString() {
-        return "Hotel Name: " + name + " " + "\nWeekDayRate: " + weekDayRate + "\nWeekEndRate: " + weekEndRate + "\nRating: " + rating;
+        return "Hotel Name: " + name + " " + "\nWeekDayRate: " + weekDayRate + "\nWeekEndRate: " + weekEndRate + "\nRating: " + rating + "";
     }
 }

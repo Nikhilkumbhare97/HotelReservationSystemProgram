@@ -41,16 +41,31 @@ public class HotelReservationTest {
         LocalDate lastDate = LocalDate.of(2020, Month.SEPTEMBER, 11);
 
         Hotel cheapestHotel = hotelReservation.getCheapestHotel(startDate, lastDate);
-        Assertions.assertEquals("LakeWood", cheapestHotel.getName());
+        Assertions.assertEquals("LakeWood", cheapestHotel.name);
     }
 
     @Test
-    public void givenDateRange_ShouldReturnCheapestHotelByRating() {
+    public void givenDateRange_ShouldPrintCheapestHotels() {
         LocalDate startDate = LocalDate.of(2020, Month.SEPTEMBER, 11);
         LocalDate lastDate = LocalDate.of(2020, Month.SEPTEMBER, 12);
 
-        int result = hotelReservation.findCheapestHotels(startDate, lastDate);
-        Assertions.assertEquals(200, result);
-        hotelReservation.findCheapestHotelByRatings();
+        hotelReservation.findCheapestHotels(startDate, lastDate);
+    }
+
+    @Test
+    public void givenDateRange_ShouldPrintCheapestHotelByRating() {
+        LocalDate startDate = LocalDate.of(2020, Month.SEPTEMBER, 11);
+        LocalDate lastDate = LocalDate.of(2020, Month.SEPTEMBER, 12);
+
+        hotelReservation.findCheapestHotelByRatings(startDate, lastDate);
+    }
+
+    @Test
+    public void givenDateRange_ShouldReturnBestRatedHotel() {
+        LocalDate startDate = LocalDate.of(2020, Month.SEPTEMBER, 11);
+        LocalDate lastDate = LocalDate.of(2020, Month.SEPTEMBER, 12);
+
+        Hotel bestRatedHotel = hotelReservation.findBestRatedHotel(startDate, lastDate);
+        Assertions.assertEquals("RidgeWood", bestRatedHotel.name);
     }
 }

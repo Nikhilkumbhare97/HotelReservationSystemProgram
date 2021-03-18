@@ -22,11 +22,11 @@ public class HotelReservation {
         int cheapRate;
         Hotel cheapest = Collections.min(hotels, Comparator.comparing(hotel -> hotel.weekDayRate));
         cheapRate = (int) ((daysBetween + 1) * cheapest.weekDayRate);
-        System.out.println("Cheapest Hotel Name: " + cheapest.getName() + "\nTotal Rate: " + cheapRate);
+        System.out.println("Cheapest Hotel Name: " + cheapest.name + "\nTotal Rate: " + cheapRate);
         return cheapest;
     }
 
-    public int findCheapestHotels(LocalDate startDate, LocalDate lastDate) {
+    public void hotelData(LocalDate startDate, LocalDate lastDate) {
 
         List<LocalDate> dateList = startDate.datesUntil(lastDate).collect(Collectors.toList());
         dateList.add(lastDate);
@@ -44,31 +44,29 @@ public class HotelReservation {
             }
         }
 
-        System.out.println("Hotel List And Total Rate For Given Dates");
-        for (Hotel hotel : hotels) {
-            System.out.println("Hotel Name: " + hotel.getName() + " " + "Total Rate: " + hotel.totalRate);
-        }
-
         result = hotels.get(0);
         for (Hotel hotel : hotels) {
             if (result.totalRate > hotel.totalRate) {
                 result = hotel;
-                minRateInAll.put(hotel.getName(), hotel.totalRate);
+                minRateInAll.put(hotel.name, hotel.totalRate);
             }
         }
-        minRateInAll.put(result.getName(), result.totalRate);
+        minRateInAll.put(result.name, result.totalRate);
         for (Hotel hotel : hotels) {
             if (hotel.totalRate == result.totalRate) {
-                minRateInAll.put(hotel.getName(), hotel.totalRate);
-                minRateAndBestRating.put(hotel.getName(), hotel.rating);
+                minRateInAll.put(hotel.name, hotel.totalRate);
+                minRateAndBestRating.put(hotel.name, hotel.rating);
             }
         }
-        System.out.println("Min Rate Hotels");
-        minRateInAll.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
-        return result.totalRate;
     }
 
-    public void findCheapestHotelByRatings() {
+    public void findCheapestHotels(LocalDate startDate, LocalDate lastDate) {
+        hotelData(startDate, lastDate);
+        System.out.println("Min Rate Hotels");
+        minRateInAll.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
+    }
+    public void findCheapestHotelByRatings(LocalDate startDate, LocalDate lastDate) {
+        findCheapestHotels(startDate, lastDate);
         Integer maxRating = (Collections.max(minRateAndBestRating.values()));
         for (Map.Entry<String, Integer> entry : minRateAndBestRating.entrySet()) {
             if (entry.getValue().equals(maxRating)) {
@@ -76,5 +74,13 @@ public class HotelReservation {
                 System.out.println("Hotel Name: " + entry.getKey() + "\nRating: " + entry.getValue() + "\nTotal Rate: " + result.totalRate);
             }
         }
+    }
+
+    public Hotel findBestRatedHotel(LocalDate startDate, LocalDate lastDate) {
+        hotelData(startDate, lastDate);
+        Hotel bestRated = Collections.max(hotels, Comparator.comparing(hotel -> hotel.rating));
+        System.out.println("Best Rated Hotel");
+        System.out.println("Hotel Name: " + bestRated.name + "\nTotal Rate: " + bestRated.totalRate);
+        return bestRated;
     }
 }
