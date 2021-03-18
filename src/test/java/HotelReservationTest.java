@@ -13,9 +13,9 @@ public class HotelReservationTest {
 
     HotelReservation hotelReservation;
 
-    Hotel lakewood = new Hotel("LakeWood", 110, 90, 3);
-    Hotel bridgewood = new Hotel("BridgeWood", 150, 50, 4);
-    Hotel ridgewood = new Hotel("RidgeWood", 220, 150, 5);
+    Hotel lakewood = new Hotel("LakeWood", 110, 90, 80, 80, 3);
+    Hotel bridgewood = new Hotel("BridgeWood", 150, 50, 110, 50, 4);
+    Hotel ridgewood = new Hotel("RidgeWood", 220, 150, 100, 40, 5);
 
     @BeforeEach
     public void setUp() {

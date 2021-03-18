@@ -20,8 +20,8 @@ public class HotelReservation {
     public Hotel getCheapestHotel(LocalDate startDate, LocalDate lastDate) {
         long daysBetween = ChronoUnit.DAYS.between(startDate, lastDate);
         int cheapRate;
-        Hotel cheapest = Collections.min(hotels, Comparator.comparing(hotel -> hotel.weekDayRate));
-        cheapRate = (int) ((daysBetween + 1) * cheapest.weekDayRate);
+        Hotel cheapest = Collections.min(hotels, Comparator.comparing(hotel -> hotel.regularWeekDayRate));
+        cheapRate = (int) ((daysBetween + 1) * cheapest.regularWeekDayRate);
         System.out.println("Cheapest Hotel Name: " + cheapest.name + "\nTotal Rate: " + cheapRate);
         return cheapest;
     }
@@ -35,11 +35,11 @@ public class HotelReservation {
             DayOfWeek dayOfWeek2 = DayOfWeek.from(localDate);
             if (dayOfWeek2.equals(DayOfWeek.SATURDAY) || dayOfWeek2.equals(DayOfWeek.SUNDAY)) {
                 for (Hotel hotel : hotels) {
-                    hotel.totalRate += hotel.weekEndRate;
+                    hotel.totalRate += hotel.regularWeekDayRate;
                 }
             } else {
                 for (Hotel hotel : hotels) {
-                    hotel.totalRate += hotel.weekDayRate;
+                    hotel.totalRate += hotel.regularWeekEndRate;
                 }
             }
         }

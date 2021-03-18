@@ -3,20 +3,24 @@ package com.bridgelabz.hotelreservationsystem;
 public class Hotel {
 
     public String name;
-    public int weekDayRate;
-    public int weekEndRate;
+    public int regularWeekDayRate;
+    public int regularWeekEndRate;
+    public int rewardWeekDayRate;
+    public int rewardWeekEndRate;
     public int totalRate;
     public int rating;
 
-    public Hotel(String name, int weekDayRate, int weekEndRate, int rating) {
+    public Hotel(String name, int regularWeekDayRate, int regularWeekEndRate, int rewardWeekDayRate, int rewardWeekEndRate, int rating) {
         this.name = name;
-        this.weekDayRate = weekDayRate;
-        this.weekEndRate = weekEndRate;
+        this.regularWeekDayRate = regularWeekDayRate;
+        this.regularWeekEndRate = regularWeekEndRate;
+        this.rewardWeekDayRate = rewardWeekDayRate;
+        this.rewardWeekEndRate = rewardWeekEndRate;
         this.rating = rating;
     }
 
     @Override
     public String toString() {
-        return "Hotel Name: " + name + " " + "\nWeekDayRate: " + weekDayRate + "\nWeekEndRate: " + weekEndRate + "\nRating: " + rating + "";
+        return "Hotel Name: " + name + " " + "\nRegularWeekDayRate: " + regularWeekDayRate + "\nRegularWeekEndRate: " + regularWeekEndRate+ " " + "\nRewardWeekDayRate: " + rewardWeekDayRate + "\nRewardWeekEndRate: " + rewardWeekEndRate + "\nRating: " + rating;
     }
 }
