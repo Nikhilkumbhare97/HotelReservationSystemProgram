@@ -32,7 +32,7 @@ public class HotelReservationTest {
         Assertions.assertTrue(hotels.contains(bridgewood));
         Assertions.assertTrue(hotels.contains(ridgewood));
 
-       hotels.forEach(System.out::println);
+        hotels.forEach(System.out::println);
     }
 
     @Test
@@ -45,11 +45,12 @@ public class HotelReservationTest {
     }
 
     @Test
-    public void givenDateRange_ShouldReturnCheapestHotels() {
+    public void givenDateRange_ShouldReturnCheapestHotelByRating() {
         LocalDate startDate = LocalDate.of(2020, Month.SEPTEMBER, 11);
         LocalDate lastDate = LocalDate.of(2020, Month.SEPTEMBER, 12);
 
         int result = hotelReservation.findCheapestHotels(startDate, lastDate);
         Assertions.assertEquals(200, result);
+        hotelReservation.findCheapestHotelByRatings();
     }
 }
