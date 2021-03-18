@@ -5,6 +5,7 @@ public class Hotel {
     public String name;
     public int weekDayRate;
     public int weekEndRate;
+    public int totalRate;
 
     public Hotel(String name, int weekDayRate, int weekEndRate) {
         this.name = name;
