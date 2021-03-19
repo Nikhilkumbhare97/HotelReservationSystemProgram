@@ -86,15 +86,14 @@ public class HotelReservation {
         minRateInRegular.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
     }
 
-    public Integer findCheapestRegualarHotelByRatings(LocalDate startDate, LocalDate lastDate) {
+    public Integer findCheapestRegualarHotelByRatings(String startdate, String lastdate) {
+        LocalDate startDate = LocalDate.parse(startdate);
+        LocalDate lastDate = LocalDate.parse(lastdate);
         findCheapestRegularHotels(startDate, lastDate);
         Integer maxRating = (Collections.max(minRegularRateAndBestRating.values()));
-        for (Map.Entry<String, Integer> entry : minRegularRateAndBestRating.entrySet()) {
-            if (entry.getValue().equals(maxRating)) {
-                System.out.println("Hotel with Minimum Total Rate And Best Rating");
-                System.out.println("Hotel Name: " + entry.getKey() + "\nRating: " + entry.getValue() + "\nTotal Rate: " + result1.totalRegularRate);
-            }
-        }
+        System.out.println("Hotel with Minimum Total Rate And Best Rating");
+        minRegularRateAndBestRating.entrySet().stream().filter(p -> p.getValue().equals(maxRating))
+                .forEach(p -> System.out.println(p.getKey() + "\nRating: " + p.getValue() + "\nTotal Rate: " + result1.totalRegularRate));
         return maxRating;
     }
 
@@ -112,15 +111,14 @@ public class HotelReservation {
         minRateInReward.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
     }
 
-    public Integer findCheapestRewardHotelByRatings(LocalDate startDate, LocalDate lastDate) {
+    public Integer findCheapestRewardHotelByRatings(String startdate, String lastdate) {
+        LocalDate startDate = LocalDate.parse(startdate);
+        LocalDate lastDate = LocalDate.parse(lastdate);
         findCheapestRewardHotels(startDate, lastDate);
         Integer maxRating = (Collections.max(minRewardRateAndBestRating.values()));
-        for (Map.Entry<String, Integer> entry : minRewardRateAndBestRating.entrySet()) {
-            if (entry.getValue().equals(maxRating)) {
-                System.out.println("Hotel with Minimum Total Rate And Best Rating");
-                System.out.println("Hotel Name: " + entry.getKey() + "\nRating: " + entry.getValue() + "\nTotal Rate: " + result2.totalRewardRate);
-            }
-        }
+        System.out.println("Hotel with Minimum Total Rate And Best Rating");
+        minRewardRateAndBestRating.entrySet().stream().filter(p -> p.getValue().equals(maxRating))
+                .forEach(p -> System.out.println(p.getKey() + "\nRating: " + p.getValue() + "\nTotal Rate: " + result2.totalRewardRate));
         return maxRating;
     }
 }
