@@ -9,9 +9,12 @@ import java.util.stream.Collectors;
 public class HotelReservation {
 
     public static List<Hotel> hotels = new ArrayList<>();
-    Map<String, Integer> minRateInAll = new HashMap<>();
-    Map<String, Integer> minRateAndBestRating = new HashMap<>();
-    Hotel result;
+    Map<String, Integer> minRateInRegular = new HashMap<>();
+    Map<String, Integer> minRateInReward = new HashMap<>();
+    Map<String, Integer> minRegularRateAndBestRating = new HashMap<>();
+    Map<String, Integer> minRewardRateAndBestRating = new HashMap<>();
+    Hotel result1;
+    Hotel result2;
 
     public void addHotel(Hotel hotel) {
         hotels.add(hotel);
@@ -35,52 +38,89 @@ public class HotelReservation {
             DayOfWeek dayOfWeek2 = DayOfWeek.from(localDate);
             if (dayOfWeek2.equals(DayOfWeek.SATURDAY) || dayOfWeek2.equals(DayOfWeek.SUNDAY)) {
                 for (Hotel hotel : hotels) {
-                    hotel.totalRate += hotel.regularWeekDayRate;
+                    hotel.totalRegularRate += hotel.regularWeekDayRate;
+                    hotel.totalRewardRate += hotel.rewardWeekDayRate;
                 }
             } else {
                 for (Hotel hotel : hotels) {
-                    hotel.totalRate += hotel.regularWeekEndRate;
+                    hotel.totalRegularRate += hotel.regularWeekEndRate;
+                    hotel.totalRewardRate += hotel.rewardWeekEndRate;
                 }
             }
         }
 
-        result = hotels.get(0);
+        result1 = hotels.get(0);
         for (Hotel hotel : hotels) {
-            if (result.totalRate > hotel.totalRate) {
-                result = hotel;
-                minRateInAll.put(hotel.name, hotel.totalRate);
+            if (result1.totalRegularRate > hotel.totalRegularRate) {
+                result1 = hotel;
+                minRateInRegular.put(hotel.name, hotel.totalRegularRate);
             }
         }
-        minRateInAll.put(result.name, result.totalRate);
+        minRateInRegular.put(result1.name, result1.totalRegularRate);
         for (Hotel hotel : hotels) {
-            if (hotel.totalRate == result.totalRate) {
-                minRateInAll.put(hotel.name, hotel.totalRate);
-                minRateAndBestRating.put(hotel.name, hotel.rating);
+            if (hotel.totalRegularRate == result1.totalRegularRate) {
+                minRateInRegular.put(hotel.name, hotel.totalRegularRate);
+                minRegularRateAndBestRating.put(hotel.name, hotel.rating);
+            }
+        }
+
+        result2 = hotels.get(0);
+        for (Hotel hotel : hotels) {
+            if (result2.totalRewardRate > hotel.totalRewardRate) {
+                result2 = hotel;
+                minRateInReward.put(hotel.name, hotel.totalRewardRate);
+            }
+        }
+        minRewardRateAndBestRating.put(result2.name, result2.totalRewardRate);
+        for (Hotel hotel : hotels) {
+            if (hotel.totalRewardRate == result2.totalRewardRate) {
+                minRateInReward.put(hotel.name, hotel.totalRewardRate);
+                minRewardRateAndBestRating.put(hotel.name, hotel.rating);
             }
         }
     }
 
-    public void findCheapestHotels(LocalDate startDate, LocalDate lastDate) {
+    public void findCheapestRegularHotels(LocalDate startDate, LocalDate lastDate) {
         hotelData(startDate, lastDate);
         System.out.println("Min Rate Hotels");
-        minRateInAll.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
-    }
-    public void findCheapestHotelByRatings(LocalDate startDate, LocalDate lastDate) {
-        findCheapestHotels(startDate, lastDate);
-        Integer maxRating = (Collections.max(minRateAndBestRating.values()));
-        for (Map.Entry<String, Integer> entry : minRateAndBestRating.entrySet()) {
-            if (entry.getValue().equals(maxRating)) {
-                System.out.println("Hotel with Minimum Total Rate And Best Rating");
-                System.out.println("Hotel Name: " + entry.getKey() + "\nRating: " + entry.getValue() + "\nTotal Rate: " + result.totalRate);
-            }
-        }
+        minRateInRegular.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
     }
 
-    public Hotel findBestRatedHotel(LocalDate startDate, LocalDate lastDate) {
+    public Integer findCheapestRegualarHotelByRatings(LocalDate startDate, LocalDate lastDate) {
+        findCheapestRegularHotels(startDate, lastDate);
+        Integer maxRating = (Collections.max(minRegularRateAndBestRating.values()));
+        for (Map.Entry<String, Integer> entry : minRegularRateAndBestRating.entrySet()) {
+            if (entry.getValue().equals(maxRating)) {
+                System.out.println("Hotel with Minimum Total Rate And Best Rating");
+                System.out.println("Hotel Name: " + entry.getKey() + "\nRating: " + entry.getValue() + "\nTotal Rate: " + result1.totalRegularRate);
+            }
+        }
+        return maxRating;
+    }
+
+    public Hotel findBestRegularRatedHotel(LocalDate startDate, LocalDate lastDate) {
         hotelData(startDate, lastDate);
         Hotel bestRated = Collections.max(hotels, Comparator.comparing(hotel -> hotel.rating));
         System.out.println("Best Rated Hotel");
-        System.out.println("Hotel Name: " + bestRated.name + "\nTotal Rate: " + bestRated.totalRate);
+        System.out.println("Hotel Name: " + bestRated.name + "\nTotal Rate: " + bestRated.totalRegularRate);
         return bestRated;
+    }
+
+    public void findCheapestRewardHotels(LocalDate startDate, LocalDate lastDate) {
+        hotelData(startDate, lastDate);
+        System.out.println("Min Rate Hotels");
+        minRateInReward.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
+    }
+
+    public Integer findCheapestRewardHotelByRatings(LocalDate startDate, LocalDate lastDate) {
+        findCheapestRewardHotels(startDate, lastDate);
+        Integer maxRating = (Collections.max(minRewardRateAndBestRating.values()));
+        for (Map.Entry<String, Integer> entry : minRewardRateAndBestRating.entrySet()) {
+            if (entry.getValue().equals(maxRating)) {
+                System.out.println("Hotel with Minimum Total Rate And Best Rating");
+                System.out.println("Hotel Name: " + entry.getKey() + "\nRating: " + entry.getValue() + "\nTotal Rate: " + result2.totalRewardRate);
+            }
+        }
+        return maxRating;
     }
 }

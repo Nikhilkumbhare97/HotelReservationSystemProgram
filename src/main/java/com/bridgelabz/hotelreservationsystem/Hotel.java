@@ -7,7 +7,8 @@ public class Hotel {
     public int regularWeekEndRate;
     public int rewardWeekDayRate;
     public int rewardWeekEndRate;
-    public int totalRate;
+    public int totalRegularRate;
+    public int totalRewardRate;
     public int rating;
 
     public Hotel(String name, int regularWeekDayRate, int regularWeekEndRate, int rewardWeekDayRate, int rewardWeekEndRate, int rating) {
@@ -21,6 +22,6 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return "Hotel Name: " + name + " " + "\nRegularWeekDayRate: " + regularWeekDayRate + "\nRegularWeekEndRate: " + regularWeekEndRate+ " " + "\nRewardWeekDayRate: " + rewardWeekDayRate + "\nRewardWeekEndRate: " + rewardWeekEndRate + "\nRating: " + rating;
+        return "Hotel Name: " + name + " " + "\nRegularWeekDayRate: " + regularWeekDayRate + "\nRegularWeekEndRate: " + regularWeekEndRate + " " + "\nRewardWeekDayRate: " + rewardWeekDayRate + "\nRewardWeekEndRate: " + rewardWeekEndRate + "\nRating: " + rating;
     }
 }
