@@ -54,16 +54,11 @@ public class HotelReservationTest {
     public void givenDateRange_ShouldReturnCheapestHotelByRatingForRegularCostomer() throws HotelReservationException {
         String startDate = "2020-09-11";
         String lastDate = "2020-09-12";
-        String pattern = "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$";
-        if (startDate.matches(pattern) && lastDate.matches(pattern)) {
-            try {
-                Integer rating = hotelReservation.findCheapestRegualarHotelByRatings(startDate, lastDate);
-                Assertions.assertEquals(4, rating);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }else{
-            throw new HotelReservationException("Invalid Date Pattern");
+        try {
+            Integer rating = hotelReservation.findCheapestRegualarHotelByRatings(startDate, lastDate);
+            Assertions.assertEquals(4, rating);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
@@ -79,16 +74,11 @@ public class HotelReservationTest {
     public void givenDateRange_ShouldReturnBestRatedHotelForRewardCostomer() throws HotelReservationException {
         String startDate = "2020-09-11";
         String lastDate = "2020-09-12";
-        String pattern = "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$";
-        if (startDate.matches(pattern) && lastDate.matches(pattern)) {
-            try {
-                Integer rating = hotelReservation.findCheapestRewardHotelByRatings(startDate, lastDate);
-                Assertions.assertEquals(5, rating);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }else{
-            throw new HotelReservationException("Invalid Date Pattern");
+        try {
+            Integer rating = hotelReservation.findCheapestRewardHotelByRatings(startDate, lastDate);
+            Assertions.assertEquals(5, rating);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 }

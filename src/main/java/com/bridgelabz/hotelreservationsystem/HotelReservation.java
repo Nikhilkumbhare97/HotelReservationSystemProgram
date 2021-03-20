@@ -16,6 +16,15 @@ public class HotelReservation {
     Hotel result1;
     Hotel result2;
 
+    public void dateValidation (String startDate, String lastDate) throws HotelReservationException {
+        String pattern = "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$";
+        if (startDate.matches(pattern) && lastDate.matches(pattern)) {
+            System.out.println("Valid Dates Pattern");
+        }else{
+            throw new HotelReservationException("Invalid Date Pattern");
+        }
+    }
+
     public void addHotel(Hotel hotel) {
         hotels.add(hotel);
     }
@@ -86,7 +95,8 @@ public class HotelReservation {
         minRateInRegular.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
     }
 
-    public Integer findCheapestRegualarHotelByRatings(String startdate, String lastdate) {
+    public Integer findCheapestRegualarHotelByRatings(String startdate, String lastdate) throws HotelReservationException {
+        dateValidation(startdate,lastdate);
         LocalDate startDate = LocalDate.parse(startdate);
         LocalDate lastDate = LocalDate.parse(lastdate);
         findCheapestRegularHotels(startDate, lastDate);
@@ -111,7 +121,8 @@ public class HotelReservation {
         minRateInReward.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
     }
 
-    public Integer findCheapestRewardHotelByRatings(String startdate, String lastdate) {
+    public Integer findCheapestRewardHotelByRatings(String startdate, String lastdate) throws HotelReservationException {
+        dateValidation(startdate,lastdate);
         LocalDate startDate = LocalDate.parse(startdate);
         LocalDate lastDate = LocalDate.parse(lastdate);
         findCheapestRewardHotels(startDate, lastDate);
